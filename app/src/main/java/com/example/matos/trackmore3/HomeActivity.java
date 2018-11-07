@@ -10,7 +10,8 @@ import android.widget.Button;
 public class HomeActivity extends AppCompatActivity {
 
 
-    private Button tracking_button;
+    private Button tracking_button,  New_device, Setup_device;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +20,8 @@ public class HomeActivity extends AppCompatActivity {
 
 
         tracking_button = findViewById(R.id.tracking);
+        New_device = findViewById(R.id.new_device);
+        Setup_device = findViewById(R.id.setup);
 
         tracking_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -27,15 +30,31 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        New_device.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addNewDeviceActivity();
+            }
+        });
+
+        Setup_device.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
     }
-
 
     public void startTrackingActivity() {
         Intent intent = new Intent(this, MapsActivity.class);
         startActivity(intent);
     }
 
+    public void addNewDeviceActivity(){
+        Intent intent = new Intent(this, AddNewActivity.class);
+        startActivity(intent);
+    }
 
 
 
