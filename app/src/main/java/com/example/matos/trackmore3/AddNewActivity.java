@@ -199,7 +199,7 @@ public class AddNewActivity extends AppCompatActivity {
         String code = "";
 
         if (codeCount < 5) {
-            Toast.makeText(AddNewActivity.this, "Code has to be 5 digits", Toast.LENGTH_LONG).show();
+            Toast.makeText(AddNewActivity.this, "Has to be 5 digits", Toast.LENGTH_LONG).show();
         } else {
             code = txt1.getText().toString() + txt2.getText().toString() + txt3.getText().toString() +
                     txt4.getText().toString() + txt5.getText().toString();
