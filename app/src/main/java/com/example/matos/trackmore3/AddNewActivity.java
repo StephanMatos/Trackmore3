@@ -1,5 +1,8 @@
 package com.example.matos.trackmore3;
 
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,16 +12,20 @@ import android.widget.Toast;
 
 public class AddNewActivity extends AppCompatActivity {
 
-    private View help;
     private Button button1, button2, button3, button4, button5, button6, button7, button8, button9, button0, buttonDel, buttonNxt;
     private TextView txt1, txt2, txt3, txt4, txt5;
     int codeCount = 0;
     int btnPress;
 
+    Dialog myDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new);
+
+        // For creating the popup menu when help is pressed
+        myDialog = new Dialog(this);
 
         // All the buttons for the digit-pad
         button1 = findViewById(R.id.button1);
@@ -138,6 +145,7 @@ public class AddNewActivity extends AppCompatActivity {
             }
         });
 
+
     }
     // Setting the right txtView according to the pressed button
     public void Code(int btnPress, int codeCount){
@@ -193,7 +201,6 @@ public class AddNewActivity extends AppCompatActivity {
 
     }
 
-
     // Sends the code if Next button is pressed
     public String Next(int codeCount) {
         String code = "";
@@ -206,5 +213,19 @@ public class AddNewActivity extends AppCompatActivity {
         }
 
         return code;
+    }
+
+    public void ShowPopup (View v) {
+        TextView txtclose;
+        myDialog.setContentView(R.layout.help_popup_addnew);
+        txtclose = (TextView) myDialog.findViewById(R.id.close);
+        txtclose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myDialog.dismiss();
+            }
+        });
+        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        myDialog.show();
     }
 }
