@@ -33,7 +33,7 @@ public class Add_new_test2 extends AppCompatActivity {
         editPin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editPin.getText().clear();
+
             }
         });
 
