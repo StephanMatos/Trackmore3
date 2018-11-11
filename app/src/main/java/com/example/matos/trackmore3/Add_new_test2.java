@@ -1,13 +1,17 @@
 package com.example.matos.trackmore3;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class Add_new_test2 extends AppCompatActivity {
 
@@ -17,17 +21,21 @@ public class Add_new_test2 extends AppCompatActivity {
     SharedPreferences preferences;
     static boolean update = false, status;
     int clicks = 0;
+    Dialog helpdialog;
+    private View help;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_test2);
 
-
+        help = findViewById(R.id.help);
         editName = findViewById(R.id.name);
         editPin = findViewById(R.id.pincode);
         editCode = findViewById(R.id.code);
 
+        // For creating the popup menu when help is pressed
+        helpdialog = new Dialog(this);
 
 
         editCode.setOnKeyListener(new View.OnKeyListener() {
@@ -83,6 +91,21 @@ public class Add_new_test2 extends AppCompatActivity {
                 }
             }
         }
+    }
+
+
+    public void ShowPopup (View v) {
+        TextView txtclose;
+        helpdialog.setContentView(R.layout.help_popup_addnew);
+        txtclose = (TextView) helpdialog.findViewById(R.id.close);
+        txtclose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                helpdialog.dismiss();
+            }
+        });
+        helpdialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        helpdialog.show();
     }
 }
 
