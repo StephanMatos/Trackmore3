@@ -28,8 +28,6 @@ public class AsyncGET extends AsyncTask<String,Void,JSONObject> {
         ID.add("1234");
         ID.add("12345");
 
-
-
         try {
 
             for(int i = 0; i < ID.size(); i++){
