@@ -70,7 +70,8 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Verification code"
-        android:focusable="true"/>
+        android:focusable="true"
+        />
 
 
 </android.widget.RelativeLayout>
