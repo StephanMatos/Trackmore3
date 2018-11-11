@@ -42,8 +42,10 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="275dp"
         android:ems="10"
+        android:focusable="true"
+        android:hint="Name"
         android:inputType="textPersonName"
-        android:text="Name" />
+        android:nextFocusDown="@+id/pincode" />
 
 
     <EditText
@@ -55,9 +57,10 @@
         android:layout_marginStart="6dp"
         android:layout_marginTop="50dp"
         android:ems="10"
+        android:focusable="true"
+        android:hint="Pin"
         android:inputType="numberDecimal"
-        android:text="Pincode"
-        android:focusable="true"/>
+        android:nextFocusDown="@+id/code" />
 
     <EditText
         android:id="@+id/code"
@@ -68,10 +71,9 @@
         android:layout_marginStart="3dp"
         android:layout_marginTop="50dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Verification code"
         android:focusable="true"
-        />
+        android:hint="Verification Code"
+        android:inputType="textPersonName" />
 
 
 </android.widget.RelativeLayout>

@@ -16,6 +16,7 @@ public class Add_new_test2 extends AppCompatActivity {
     private Boolean pinBool = false,codeBool = false;
     SharedPreferences preferences;
     static boolean update = false, status;
+    int clicks = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,35 +28,23 @@ public class Add_new_test2 extends AppCompatActivity {
         editPin = findViewById(R.id.pincode);
         editCode = findViewById(R.id.code);
 
-        editName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                editName.getText().clear();
-                setTexts();
+
+
+        editCode.setOnKeyListener(new View.OnKeyListener() {
+            public boolean onKey(View view, int keyCode, KeyEvent keyevent) {
+                //If the keyevent is a key-down event on the "enter" button
+                if ((keyevent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    System.out.println("sadfghjkhgfdfghjklkjhgfdcvbnmk,lkjhgfd");
+                    update();
+                    return true;
+                }
+                return false;
             }
         });
     }
 
 
 
-
-    public void setTexts() {
-
-
-            editName.setOnKeyListener(new View.OnKeyListener() {
-                public boolean onKey(View view, int keyCode, KeyEvent keyevent) {
-                    //If the keyevent is a key-down event on the "enter" button
-                    if ((keyCode == KeyEvent.KEYCODE_ENTER)) {
-                        editPin.getText().clear();
-                        editName.clearFocus();
-                        System.out.println("sadfghjkhgfdfghjklkjhgfdcvbnmk,lkjhgfd");
-                        editPin.requestFocus();
-                        return true;
-                    }
-                    return false;
-                }
-            });
-    }
 
     private void update(){
 
@@ -75,25 +64,25 @@ public class Add_new_test2 extends AppCompatActivity {
             } else {
                 codeBool = true;
             }
+            System.out.println(codeBool);
+            System.out.println(pinBool);
 
             if(codeBool && pinBool){
-            new AsyncCheck().execute();
+            new AsyncCheck().execute(code);
                 while(!update){
 
                 }
                 if(status){
                     // check corret
                     update = false;
+                    System.out.println("ID was correct");
                 }else {
                     // toast wrong ID
 
                     update = false;
                 }
-
             }
-
         }
-
     }
 }
 
