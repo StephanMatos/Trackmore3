@@ -40,7 +40,7 @@ public class HomeActivity extends AppCompatActivity {
         Setup_device.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                setupDevice();
             }
         });
 
@@ -53,6 +53,11 @@ public class HomeActivity extends AppCompatActivity {
 
     public void addNewDeviceActivity(){
         Intent intent = new Intent(this, AddNewActivity.class);
+        startActivity(intent);
+    }
+
+    public void setupDevice () {
+        Intent intent = new Intent(this, Add_new_test2.class);
         startActivity(intent);
     }
 
