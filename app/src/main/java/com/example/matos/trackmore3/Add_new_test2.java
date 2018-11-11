@@ -2,6 +2,7 @@ package com.example.matos.trackmore3;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Add_new_test2 extends AppCompatActivity {
 
@@ -29,7 +31,7 @@ public class Add_new_test2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_test2);
 
-        help = findViewById(R.id.help);
+
         editName = findViewById(R.id.name);
         editPin = findViewById(R.id.pincode);
         editCode = findViewById(R.id.code);
@@ -78,16 +80,21 @@ public class Add_new_test2 extends AppCompatActivity {
             if(codeBool && pinBool){
             new AsyncCheck().execute(code);
                 while(!update){
-
+                    System.out.println("while");
                 }
+
                 if(status){
-                    // check corret
+                    // check correct
                     update = false;
-                    System.out.println("ID was correct");
+                    Toast.makeText(this, "Device Successfully Added", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(this, HomeActivity.class);
+                    startActivity(intent);
+
                 }else {
                     // toast wrong ID
-
+                    System.out.println("update false");
                     update = false;
+                    Toast.makeText(this, "Failed to add Device, check verification code or pin", Toast.LENGTH_LONG).show();
                 }
             }
         }

@@ -11,14 +11,12 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class AsyncCheck extends AsyncTask<String,Void,Boolean> {
+public class AsyncCheck extends AsyncTask<String,Void,Void> {
 
     @Override
-    protected Boolean doInBackground(String... strings) {
+    protected Void doInBackground(String... strings) {
 
         System.out.println("Check START");
-        JSONObject Master = new JSONObject();
-        ArrayList<String> ID = new ArrayList<>();
         URL url = null;
         try {
             url = new URL("http://easyeats.dk/post.php?check=true&id="+strings[0]);
@@ -36,20 +34,19 @@ public class AsyncCheck extends AsyncTask<String,Void,Boolean> {
                     httpURLConnection.disconnect();
                     if(data.contains("ID=TRUE")){
                         System.out.println("true");
-                        return true;
+                        Add_new_test2.update = true;
+                        Add_new_test2.status = true;
+
+                    }else{
+                        Add_new_test2.update = true;
+                        Add_new_test2.status = false;
                     }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         System.out.println("GET END");
-        return false;
+        return null;
     }
 
-    @Override
-    protected void onPostExecute(Boolean bool) {
-
-    Add_new_test2.status = bool;
-    Add_new_test2.update = true;
-    }
 }
