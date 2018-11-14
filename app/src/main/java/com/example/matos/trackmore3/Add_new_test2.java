@@ -44,7 +44,6 @@ public class Add_new_test2 extends AppCompatActivity {
             public boolean onKey(View view, int keyCode, KeyEvent keyevent) {
                 //If the keyevent is a key-down event on the "enter" button
                 if ((keyevent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    System.out.println("sadfghjkhgfdfghjklkjhgfdcvbnmk,lkjhgfd");
                     update();
                     return true;
                 }
@@ -112,6 +111,7 @@ public class Add_new_test2 extends AppCompatActivity {
             }
         });
         helpdialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
         helpdialog.show();
     }
 }
