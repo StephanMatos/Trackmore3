@@ -15,6 +15,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Add_new_test2 extends AppCompatActivity {
 
     private EditText editName, editPin, editCode;
@@ -84,6 +87,16 @@ public class Add_new_test2 extends AppCompatActivity {
 
                 if(status){
                     // check correct
+                    JSONObject json = new JSONObject();
+                    try {
+                        json.put("name", name);
+                        json.put("pincode", pin);
+                        json.put("code", code);
+                        json.put("markercolor", "red");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    Services.save(this, json);
                     update = false;
                     Toast.makeText(this, "Device Successfully Added", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(this, HomeActivity.class);
@@ -98,6 +111,9 @@ public class Add_new_test2 extends AppCompatActivity {
             }
         }
     }
+
+
+
 
 
     public void ShowPopup (View v) {
