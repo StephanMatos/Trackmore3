@@ -15,10 +15,15 @@ public class Services {
 
     public static boolean save(Context c, JSONObject json) {
 
+        ArrayList<JSONObject> jsons = load(c);
+
         try {
             OutputStreamWriter o = new OutputStreamWriter(c.openFileOutput("file.txt", Context.MODE_PRIVATE));
 
-            o.append("#" + json.toString());
+            for(JSONObject j : jsons){
+                o.write("#" + j.toString());
+            }
+            o.write("#" + json.toString());
 
             System.out.println("SAVE " + json.toString());
 
@@ -74,6 +79,46 @@ public class Services {
 
         return JSONS;
 
+    }
+
+    public static boolean saveAll(Context c, ArrayList<JSONObject> jsons) {
+
+        try {
+            OutputStreamWriter o = new OutputStreamWriter(c.openFileOutput("file.txt", Context.MODE_PRIVATE));
+
+            for(JSONObject json : jsons) {
+                o.write( "#" + json.toString());
+            }
+
+            o.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
+
+    }
+
+    public static void override(Context c, JSONObject json){
+
+        ArrayList<JSONObject> JSONS;
+
+
+        JSONS = load(c);
+
+        for(JSONObject j : JSONS){
+            try {
+                if(j.getString("code").equals(json.getString("code"))){
+                    j.put("name", json.getString("name"));
+                    j.put("markercolor", json.getString("markercolor"));
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        saveAll(c, JSONS);
     }
 
 }

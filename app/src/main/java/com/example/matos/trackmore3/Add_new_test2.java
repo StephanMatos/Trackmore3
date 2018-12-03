@@ -27,7 +27,6 @@ public class Add_new_test2 extends AppCompatActivity {
     static boolean update = false, status;
     int clicks = 0;
     Dialog helpdialog;
-    private View help;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,10 +110,6 @@ public class Add_new_test2 extends AppCompatActivity {
             }
         }
     }
-
-
-
-
 
     public void ShowPopup (View v) {
         TextView txtclose;
