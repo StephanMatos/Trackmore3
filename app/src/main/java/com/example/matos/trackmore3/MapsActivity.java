@@ -49,8 +49,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     // HashMap
     static HashMap<String, Marker> MarkerMap = new HashMap<String, Marker>();
-    static ArrayList<String> ID = new ArrayList<String>();
-
+    public static ArrayList<String> ID = new ArrayList<String>();
+    public static ArrayList<String> PIN = new ArrayList<>();
+    public static ArrayList<String> Name = new ArrayList<>();
     // handler
 
     Handler h = new Handler();
@@ -66,31 +67,57 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        ID.add("1234");
-        ID.add("12345");
+
+        ArrayList<JSONObject> JsonObjects;
+        JsonObjects = Services.load(this);
+        System.out.println(JsonObjects);
+
+
+        int i = 0;
+        for (JSONObject j : JsonObjects) {
+            try {
+                ID.add(j.getString("code"));
+                PIN.add(j.getString("pincode"));
+                Name.add(j.getString("name"));
+                System.out.println(ID.get(i));
+                System.out.println(PIN.get(i));
+                i++;
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+
         startingPosition = new LatLng(12.55,122.2);
 
 
         h.postDelayed(new Runnable(){
             @SuppressLint("MissingPermission")
-            public void run(){
+            public void run() {
+                try {
+                    h.postDelayed(this, delay);
 
-                h.postDelayed(this, delay);
-                lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-                location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                latLng = new LatLng(location.getLatitude(), location.getLongitude());
-                CurrentPosition = latLng;
-                if(update){
-                    try {
-                        UpdateMarkers();
-                        System.out.println("update");
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                    if (update) {
+                        try {
+                            UpdateMarkers();
+                            System.out.println("update");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        update = false;
                     }
-                    update = false;
-                }
 
-                System.out.println("redraw");
+
+                    System.out.println("redraw");
+                    mMap.setMyLocationEnabled(true);
+                    lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+                    location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                    latLng = new LatLng(location.getLatitude(), location.getLongitude());
+                    CurrentPosition = latLng;
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
+                }catch (NullPointerException e){
+                    e.printStackTrace();
+                }
             }
         }, delay);
 
@@ -137,8 +164,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
         location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
-        latLng = new LatLng(location.getLatitude(), location.getLongitude());
-        CurrentPosition = latLng;
+        //latLng = new LatLng(location.getLatitude(), location.getLongitude());
+        //CurrentPosition = latLng;
 
         try{
             mMap.setMyLocationEnabled(true);
@@ -175,18 +202,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         for(int i = 0; i < ID.size(); i++){
 
-            String data = GetJson.getString(ID.get(i));
+            String data = GetJson.getString(Name.get(i));
             JSONObject JsonData = new JSONObject(data);
             System.out.println(JsonData);
 
             double latitude = Double.parseDouble(JsonData.getString("Latitude"));
             double longitude = Double.parseDouble(JsonData.getString("Longitude"));
+            System.out.println(latitude + "this is data " + longitude);
             markerPosition = new LatLng(latitude,longitude);
             MarkerMap.get(ID.get(i)).remove();
 
             MarkerMap.remove(ID.get(i));
+            String name = Name.get(i);
             String txt = ID.get(i);
-            Marker newMarker = mMap.addMarker(new MarkerOptions().position(markerPosition).title(txt).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            Marker newMarker = mMap.addMarker(new MarkerOptions().position(markerPosition).title(name).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
 
             System.out.println(txt);
             MarkerMap.put(txt,newMarker);

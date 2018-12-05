@@ -22,29 +22,13 @@ public class AsyncGET extends AsyncTask<String,Void,JSONObject> {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-        System.out.println("GET START");
         JSONObject Master = new JSONObject();
-        ArrayList<JSONObject> JsonObjects = new ArrayList<>();
-        JsonObjects = Services.load(null);
-        ArrayList<String> ID = new ArrayList<>();
-        ArrayList<String> PIN = new ArrayList<>();
-
-        for (JSONObject j : JsonObjects) {
-            try {
-                ID.add(j.getString("ID"));
-                PIN.add(j.getString("PIN"));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-        }
 
         try {
 
-            for(int i = 0; i < ID.size(); i++){
-
-                URL url = new URL("http://easyeats.dk/post.php?id="+ID.get(i)+"&pin="+PIN.get(i));
+            for(int i = 0; i < MapsActivity.ID.size(); i++){
+                String url1 = "http://easyeats.dk/post.php?check=false&id="+MapsActivity.ID.get(i)+"&pin="+MapsActivity.PIN.get(i);
+                URL url = new URL(url1);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 InputStream inputStream = httpURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
@@ -57,6 +41,8 @@ public class AsyncGET extends AsyncTask<String,Void,JSONObject> {
                     data = data + line;
                 }
                 httpURLConnection.disconnect();
+                System.out.print("Data is:       ");
+                System.out.println(data);
 
                 // Creates a JSON object from the text read from URL
                 JSONObject json;
@@ -72,7 +58,7 @@ public class AsyncGET extends AsyncTask<String,Void,JSONObject> {
                     sb.append((char)decimal);
                 }
                 System.out.println(sb.toString());
-                Master.put(ID.get(i),sb.toString());
+                Master.put(MapsActivity.Name.get(i),sb.toString());
 
             }
 
@@ -83,12 +69,12 @@ public class AsyncGET extends AsyncTask<String,Void,JSONObject> {
 
 
         System.out.println("GET END");
+        System.out.println(Master);
         return Master;
     }
 
     @Override
     protected void onPostExecute(JSONObject object) {
-
 
     MapsActivity.updateJson(object);
 

@@ -46,6 +46,7 @@ public class Add_new_test2 extends AppCompatActivity {
             public boolean onKey(View view, int keyCode, KeyEvent keyevent) {
                 //If the keyevent is a key-down event on the "enter" button
                 if ((keyevent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    System.out.println("update");
                     update();
                     return true;
                 }
@@ -59,7 +60,6 @@ public class Add_new_test2 extends AppCompatActivity {
 
     private void update(){
 
-        if(true){
             name = String.valueOf(editName.getText());
             pin = String.valueOf(editPin.getText());
             code = String.valueOf(editCode.getText());
@@ -80,7 +80,7 @@ public class Add_new_test2 extends AppCompatActivity {
             System.out.println(pinBool);
 
             if(codeBool && pinBool){
-            new AsyncCheck().execute(code);
+            new AsyncCheck().execute(code,pin);
                 while(!update){
                     System.out.println("while");
                 }
@@ -109,7 +109,7 @@ public class Add_new_test2 extends AppCompatActivity {
                     Toast.makeText(this, "Failed to add Device, check verification code or pin", Toast.LENGTH_LONG).show();
                 }
             }
-        }
+
     }
 
     public void ShowPopup (View v) {
