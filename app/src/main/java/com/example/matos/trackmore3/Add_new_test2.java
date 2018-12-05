@@ -64,13 +64,14 @@ public class Add_new_test2 extends AppCompatActivity {
             pin = String.valueOf(editPin.getText());
             code = String.valueOf(editCode.getText());
             if(pin.length() != 4){
-                // make toast telling pin should contain 4 digits
+                Toast.makeText(this, "Pin must contain 4 digits", Toast.LENGTH_LONG).show();
 
             }else{
                 pinBool = true;
             }
             if(code.length() != 5){
                 // make toast telling pin should contain 5 digits
+                Toast.makeText(this, "Pin must contain 5 digits", Toast.LENGTH_LONG).show();
 
             } else {
                 codeBool = true;

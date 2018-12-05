@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -21,17 +22,29 @@ public class AsyncGET extends AsyncTask<String,Void,JSONObject> {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
         System.out.println("GET START");
         JSONObject Master = new JSONObject();
+        ArrayList<JSONObject> JsonObjects = new ArrayList<>();
+        JsonObjects = Services.load(null);
         ArrayList<String> ID = new ArrayList<>();
+        ArrayList<String> PIN = new ArrayList<>();
 
-        ID.add("1234");
-        ID.add("12345");
+        for (JSONObject j : JsonObjects) {
+            try {
+                ID.add(j.getString("ID"));
+                PIN.add(j.getString("PIN"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
 
         try {
 
             for(int i = 0; i < ID.size(); i++){
-                URL url = new URL("http://easyeats.dk/data/"+ID.get(i)+".txt");
+
+                URL url = new URL("http://easyeats.dk/post.php?id="+ID.get(i)+"&pin="+PIN.get(i));
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 InputStream inputStream = httpURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));

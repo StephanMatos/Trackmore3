@@ -53,7 +53,6 @@
         <activity
             android:name=".MapsActivity"
             android:label="AIzaSyAJClixMeDKU6q030HkgJuNSaWxOl5wfO8" />
-        <activity android:name=".AddNewActivity" />
         <activity android:name=".add_new2" />
         <activity android:name=".Add_new_test2" />
         <activity android:name=".SetupDevices"></activity>
