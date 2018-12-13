@@ -29,7 +29,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".HomeActivity"
+            android:name=".SplashScreeenActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -53,9 +53,9 @@
         <activity
             android:name=".MapsActivity"
             android:label="AIzaSyAJClixMeDKU6q030HkgJuNSaWxOl5wfO8" />
-        <activity android:name=".add_new2" />
+        <activity android:name=".HomeActivity"/>
         <activity android:name=".Add_new_test2" />
-        <activity android:name=".SetupDevices"></activity>
+        <activity android:name=".SetupDevices" />
     </application>
 
 </manifest>
